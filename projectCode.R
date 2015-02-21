@@ -62,11 +62,15 @@
 # fit a model
 ################################################################################
 # partition the data into training and test
+set.seed(19891110)
   index <- createDataPartition(data$classe, p = 0.8, list = F)
   train <- data[index,]
   test <- data[-index,]
 
+featurePlot(x = train[,-53], y = train$classe, plot = "box")
+
 # fit the model - try random forest first as the data are not large and it's a robust method
+set.seed(19891110)
 ptm <- proc.time()
 rf <- randomForest(classe ~ ., data = train, ntree = 201, importance = T)
 proc.time() - ptm
